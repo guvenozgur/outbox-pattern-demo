@@ -16,3 +16,39 @@ curl -X POST -H "Content-Type: application/json" --data @postgresql-jdbc-source.
 curl --location --request GET 'http://localhost:8084/connectors' \
 --header 'Content-Type: application/json' 
 ````
+
+```shell
+curl -X GET http://localhost:8083/connector-plugins
+```
+
+
+#### Create Debezium connector 
+
+````shell
+# Create connector 
+curl --location --request POST 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "order-connector",
+    "config": {
+        "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+        "tasks.max": "1",
+        "database.hostname": "postgres",
+        "database.port": "5432",
+        "database.user": "admin",
+        "database.password": "admin",
+        "database.dbname": "orderdb",
+        "database.server.name": "master-db"
+    }
+}'
+````
+
+````shell
+# Get active connectors
+curl --location --request GET 'http://localhost:8083/connectors' \
+--header 'Content-Type: application/json' 
+````
+````shell
+# Delete connectors
+curl -i -X DELETE localhost:8083/connectors/inventory-connector/
+````
