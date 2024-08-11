@@ -49,8 +49,18 @@ services:
     depends_on:
       - kafka
       - zookeeper
-
-
+  postgres:
+    image: debezium/example-postgres:1.5
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=orderdb
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - kafka-net
 networks:
   kafka-net:
     driver: bridge
