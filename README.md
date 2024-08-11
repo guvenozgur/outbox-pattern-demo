@@ -1,6 +1,6 @@
 ## outbox-pattern-demo
 
-![image description](design/connectors-demo-desgn-transparent.png)
+![image description](design/connectors-demo-design.png)
 
 
 #### Create JDBC connector 
