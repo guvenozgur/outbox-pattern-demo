@@ -1,0 +1,16 @@
+{
+  "name": "jdbc-postgresql-source",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "tasks.max": "1",
+    "connection.url": "jdbc:postgresql://postgres:5432/orderdb",
+    "connection.user": "admin",
+    "connection.password": "admin",
+    "table.whitelist": "outbox",
+    "mode":"timestamp+incrementing",
+    "timestamp.column.name":"timestamp",
+    "incrementing.column.name":"id",
+    "topic.prefix": "postgresql-"
+  }
+}
+
