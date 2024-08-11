@@ -5,3 +5,4 @@ target
 native-libs
 .flattened-pom.xml
 *.DS_Store
+target/
