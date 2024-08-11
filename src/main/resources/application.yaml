@@ -1,0 +1,50 @@
+server:
+  shutdown: graceful
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 60s
+  task:
+    execution:
+      shutdown:
+        await-termination: true
+        await-termination-period: 30s
+  cloud:
+    config:
+      enabled: false
+      fail-fast: true
+    stream:
+      default:
+        group: outbox-worker
+        consumer:
+          ackEachRecord: true
+      default-binder: kafka
+      kafka:
+        binder:
+          required-acks: all
+          producer-properties:
+            max.in.flight.requests.per.connection: 1
+            enable.idempotence: true
+            retries: 1
+            request.timeout.ms: 3000
+            retry.backoff.ms: 1000
+          consumer-properties:
+            auto.offset.reset: latest
+            heartbeat.interval.ms: 25001
+            session.timeout.ms: 59000
+            max.poll.records: 1
+            max.poll.interval.ms: 59000
+            enable.auto.commit: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    listener:
+      idle-between-polls: 1000
+      idle-event-interval: 1000
+      immediate-stop: false
+    consumer:
+      auto-offset-reset: latest
+      bootstrap-servers: localhost:9092
+      group-id: test
+      properties:
+        spring.json.trusted.packages: demo.graceful.shutdown
+    producer:
+      bootstrap-servers: localhost:9092
