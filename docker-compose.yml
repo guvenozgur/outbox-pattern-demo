@@ -88,6 +88,21 @@ services:
     depends_on:
       - kafka
       - zookeeper
+  connect:
+    image: debezium/connect:1.5
+    ports:
+      - 8083:8083
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:29092
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=debezium_connect_configs
+      - OFFSET_STORAGE_TOPIC=debezium_connect_offsets
+      - STATUS_STORAGE_TOPIC=debezium_connect_statuses
+    networks:
+      - kafka-net
 networks:
   kafka-net:
     driver: bridge
