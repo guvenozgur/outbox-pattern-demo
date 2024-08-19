@@ -1,5 +1,7 @@
 ## outbox-pattern-demo
 
+https://medium.com/@hguvenozgur/outbox-pattern-connectors-in-action-cac146ef30c7
+
 ![image description](design/connectors-demo-design.png)
 
 
